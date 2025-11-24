@@ -1,0 +1,212 @@
+/* --- 0. CSS Variables & Defaults (Small Mobile < 540px) --- */
+:root {
+    /* Colors */
+    --color-page-bg: #e9e9e9;
+    --color-content-bg: white;
+    --color-footer-bg: #14181d;
+    --color-text-dark: #333;
+    --color-text-light: white;
+
+    /* Spacing */
+    --spacing-unit: 12px; 
+
+    /* Typography */
+    --font-heading: 'Protest Guerrilla', sans-serif;
+    --font-body: 'Josefin Sans', sans-serif;
+    --font-base-size: 16px; 
+    /* "Headings should be three times larger" */
+    --font-size-heading: calc(var(--font-base-size) * 3); 
+
+    /* Layout */
+    --content-max-width: 100%; 
+    --logo-width: 80px; 
+}
+
+/* --- Global Resets --- */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    background-color: var(--color-page-bg);
+    font-family: var(--font-body);
+    color: var(--color-text-dark);
+    line-height: 1.6;
+}
+
+/* --- Typography --- */
+h1, h2, h3 {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-heading);
+    margin-top: calc(2 * var(--spacing-unit));
+    margin-bottom: var(--spacing-unit);
+    line-height: 1.1;
+}
+
+p { margin-bottom: var(--spacing-unit); }
+
+/* --- Header & Navigation --- */
+.header {
+    padding: var(--spacing-unit);
+}
+
+.header-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-unit);
+}
+
+.logo {
+    width: var(--logo-width);
+    display: block;
+}
+
+/* Navigation Links (Hidden on small mobile if not specified, but wireframes show them) */
+.main-nav ul {
+    list-style: none;
+    display: flex;
+    gap: var(--spacing-unit);
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.main-nav a {
+    text-decoration: none;
+    color: var(--color-text-dark);
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+}
+
+/* --- Main Layout --- */
+.page-layout-grid {
+    padding: 0 var(--spacing-unit);
+    display: block;
+}
+
+.blog-post {
+    background-color: var(--color-content-bg);
+    padding: calc(2 * var(--spacing-unit)); 
+}
+
+.asset-image, .asset-image-small {
+    width: 100%;
+    height: auto;
+    margin: var(--spacing-unit) 0;
+    display: block;
+}
+
+/* --- Author Box --- */
+.author-box {
+    margin-top: calc(2 * var(--spacing-unit));
+    /* Specification doesn't say author box needs white bg, but wireframes imply it usually matches content or is separate.
+       We'll keep it simple or add white bg if it's outside. */
+}
+
+.author-photo {
+    width: 200px; /* Fixed width per spec */
+    height: 200px;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto var(--spacing-unit) auto;
+}
+
+.sidebar-extras {
+    display: none; /* Hide extra sidebar images on mobile/tablet to save space, or stack them */
+}
+
+.site-footer {
+    background-color: var(--color-footer-bg);
+    color: var(--color-text-light);
+    padding: calc(2 * var(--spacing-unit));
+    text-align: center;
+    margin-top: calc(2 * var(--spacing-unit));
+}
+
+/* ================================================= */
+/* --- 1. Large Mobile (Min-width: 540px) --- */
+/* ================================================= */
+@media (min-width: 540px) {
+    :root {
+        --spacing-unit: 20px; /* CORRECTED from spec */
+    }
+}
+
+/* ================================================= */
+/* --- 2. Tablet (Min-width: 720px) --- */
+/* ================================================= */
+@media (min-width: 720px) {
+    :root {
+        --spacing-unit: 30px; /* CORRECTED from spec */
+        --logo-width: 80px; /* Remains 80px until desktop */
+    }
+    
+    .page-layout-grid {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 0; 
+    }
+
+    .header-content {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    /* Author box becomes horizontal */
+    .author-details-wrapper {
+        display: flex;
+        gap: var(--spacing-unit);
+        align-items: center;
+        background-color: var(--color-content-bg);
+        padding: var(--spacing-unit);
+    }
+    
+    .author-photo { margin: 0; flex-shrink: 0; }
+}
+
+/* ================================================= */
+/* --- 3. Desktop (Min-width: 1024px) --- */
+/* ================================================= */
+@media (min-width: 1024px) {
+    :root {
+        --spacing-unit: 50px; /* Spec */
+        --logo-width: 200px; /* Spec */
+    }
+
+    /* TYPOGRAPHY OVERRIDES FOR DESKTOP */
+    .post-title {
+        font-size: calc(var(--font-base-size) * 5); /* "Much larger" */
+        text-align: left;
+    }
+
+    .intro-paragraph {
+        font-size: 1.25rem; /* "Larger font" for first paragraph */
+        font-weight: 400;
+    }
+
+    /* GRID LAYOUT */
+    .page-layout-grid {
+        max-width: 1200px;
+        display: grid;
+        grid-template-columns: 2fr 1fr; /* Content | Sidebar */
+        gap: var(--spacing-unit);
+    }
+
+    .sidebar-extras {
+        display: block; /* Show extra album covers in sidebar on desktop */
+    }
+    
+    .author-box {
+        margin-top: 0; /* Align with top of content */
+    }
+    
+    .author-details-wrapper {
+        flex-direction: column; /* Stack vertically again in sidebar */
+        align-items: flex-start;
+        text-align: left;
+    }
+    
+    .author-photo {
+        width: 100%; /* Fill sidebar container */
+        max-width: 200px;
+    }
+}
